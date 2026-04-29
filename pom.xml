@@ -5,16 +5,16 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.5</version>
+        <version>4.0.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.amigoscode</groupId>
+    <groupId>com.fpolizzi</groupId>
     <artifactId>spring-spring-boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-and-spring-boot</name>
     <description>spring-and-spring-boot</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>25</java.version>
     </properties>
     <dependencies>
         <dependency>
