@@ -3,6 +3,8 @@ package com.fpolizzi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
+
 @SpringBootApplication
 public class SpringAndSpringBootApplication {
 
@@ -20,5 +22,10 @@ public class SpringAndSpringBootApplication {
             String name,
             int age,
             Gender gender) {
+    }
+
+    public List<Person> getPersons() {
+
+        return null;
     }
 }
