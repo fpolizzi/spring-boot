@@ -14,4 +14,11 @@ public class SpringAndSpringBootApplication {
     }
 
     public enum Gender {MALE, FEMALE}
+
+    public record Person(
+            int id,
+            String name,
+            int age,
+            Gender gender) {
+    }
 }
