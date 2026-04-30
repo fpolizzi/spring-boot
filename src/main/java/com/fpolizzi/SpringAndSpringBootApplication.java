@@ -2,6 +2,7 @@ package com.fpolizzi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class SpringAndSpringBootApplication {
         people.add(new Person(3, "Samba", 29, Gender.MALE));
     }
 
+    @GetMapping
     public List<Person> getPersons() {
 
         return people;
