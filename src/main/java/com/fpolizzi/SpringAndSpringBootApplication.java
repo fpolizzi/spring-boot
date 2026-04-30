@@ -8,18 +8,21 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @RestController
 @SpringBootApplication
 public class SpringAndSpringBootApplication {
 
+    private static AtomicInteger idCounter = new AtomicInteger(0);
+
     public static List<Person> people = new ArrayList<>();
 
     static {
-        people.add(new Person(1, "John", 20, Gender.MALE));
-        people.add(new Person(2, "Mariam", 18, Gender.FEMALE));
-        people.add(new Person(3, "Samba", 29, Gender.MALE));
+        people.add(new Person(idCounter.incrementAndGet(), "John", 20, Gender.MALE));
+        people.add(new Person(idCounter.incrementAndGet(), "Mariam", 18, Gender.FEMALE));
+        people.add(new Person(idCounter.incrementAndGet(), "Samba", 29, Gender.MALE));
     }
 
     static void main(String[] args) {
@@ -71,14 +74,25 @@ public class SpringAndSpringBootApplication {
         people.removeIf(person -> person.id == id);
     }
 
+    @PostMapping
+    public void addPerson(@RequestBody Person person) {
+        people.add(
+                new Person(
+                        idCounter.incrementAndGet(),
+                        person.name,
+                        person.age(),
+                        person.gender
+                )
+        );
+    }
+
     public enum Gender {MALE, FEMALE}
 
     public enum SortingOrder {ASC, DESC}
 
-    public record Person(
-            int id,
-            String name,
-            int age,
-            Gender gender) {
+    public record Person(Integer id,
+                         String name,
+                         Integer age,
+                         Gender gender) {
     }
 }
