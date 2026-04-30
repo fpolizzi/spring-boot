@@ -27,8 +27,14 @@ public class SpringAndSpringBootApplication {
 
     public static List<Person> people = new ArrayList<>();
 
+    static {
+        people.add(new Person(1, "John", 20, Gender.MALE));
+        people.add(new Person(2, "Mariam", 18, Gender.FEMALE));
+        people.add(new Person(3, "Samba", 29, Gender.MALE));
+    }
+
     public List<Person> getPersons() {
 
-        return null;
+        return people;
     }
 }
