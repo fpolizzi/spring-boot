@@ -12,4 +12,6 @@ public class SpringAndSpringBootApplication {
                 args
         );
     }
+
+    public enum Gender {MALE, FEMALE}
 }
