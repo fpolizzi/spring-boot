@@ -38,15 +38,22 @@ public class SpringAndSpringBootApplication {
                     value = "sort",
                     required = false,
                     defaultValue = "ASC"
-            ) SortingOrder sort) {
+            ) SortingOrder sort,
+
+            @RequestParam(
+                    value = "limit",
+                    required = false,
+                    defaultValue = "10"
+            ) Integer limit) {
+
         if (sort == SortingOrder.ASC) {
 
-            return people.stream()
+            return people.stream().limit(limit)
                     .sorted(Comparator.comparing(Person::id))
                     .collect(Collectors.toList());
         }
 
-        return people.stream()
+        return people.stream().limit(limit)
                 .sorted(Comparator.comparing(Person::id).reversed())
                 .collect(Collectors.toList());
     }
