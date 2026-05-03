@@ -1,7 +1,10 @@
 package com.fpolizzi;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,6 +37,10 @@ public class SpringAndSpringBootApplication {
 
     @GetMapping
     public List<Person> getPersons(
+            HttpMethod httpMethod,
+            ServletRequest servletRequest,
+            ServletResponse servletResponse,
+            @RequestHeader("Content-Type") String contentType,
             @RequestParam(
                     value = "sort",
                     required = false,
@@ -45,6 +52,11 @@ public class SpringAndSpringBootApplication {
                     required = false,
                     defaultValue = "10"
             ) Integer limit) {
+
+        System.out.println(httpMethod);
+        System.out.println(servletRequest.getLocalAddr());
+        System.out.println(servletResponse.isCommitted());
+        System.out.println(contentType);
 
         if (sort == SortingOrder.ASC) {
 
