@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -86,6 +87,41 @@ public class SpringAndSpringBootApplication {
         );
     }
 
+    @PutMapping("{id}")
+    public void updatePerson(
+            @PathVariable Integer id,
+            @RequestBody PersonUpdate request
+
+    ) {
+        people.stream()
+                .filter(p -> p.id.equals(id))
+                .findFirst()
+                .ifPresent(p -> {
+                    var index = people.indexOf(p);
+
+                    if (request.name != null &&
+                            !request.name.isEmpty() &&
+                            !request.name.equals(p.name)) {
+                        Person person = new Person(
+                                p.id,
+                                request.name,
+                                p.age(),
+                                p.gender()
+                        );
+                        people.set(index, person);
+                    }
+                    if (request.age != null &&
+                            !request.age.equals(p.age)) {
+                        Person person = new Person(
+                                p.id,
+                                p.name, request.age,
+                                p.gender
+                        );
+                        people.set(index, person);
+                    }
+                });
+    }
+
     public enum Gender {MALE, FEMALE}
 
     public enum SortingOrder {ASC, DESC}
@@ -94,5 +130,9 @@ public class SpringAndSpringBootApplication {
                          String name,
                          Integer age,
                          Gender gender) {
+    }
+
+    public record PersonUpdate(String name,
+                               Integer age) {
     }
 }
