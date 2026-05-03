@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,12 +12,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("api/v1/person")
 @SpringBootApplication
 public class SpringAndSpringBootApplication {
 
-    private static AtomicInteger idCounter = new AtomicInteger(0);
-
     public static List<Person> people = new ArrayList<>();
+    private static AtomicInteger idCounter = new AtomicInteger(0);
 
     static {
         people.add(new Person(idCounter.incrementAndGet(), "John", 20, Gender.MALE));
