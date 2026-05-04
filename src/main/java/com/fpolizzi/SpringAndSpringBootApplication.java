@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/person")
+@RequestMapping("api/v1/person")
 @SpringBootApplication
 public class SpringAndSpringBootApplication {
 
