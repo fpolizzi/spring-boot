@@ -5,6 +5,7 @@ import jakarta.servlet.ServletResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/v1/person")
+@RequestMapping("/api/v1/person")
 @SpringBootApplication
 public class SpringAndSpringBootApplication {
 
@@ -71,13 +72,15 @@ public class SpringAndSpringBootApplication {
     }
 
     @GetMapping("{id}")
-    public Optional<Person> getPersonById(
+    public ResponseEntity<Optional<Person>> getPersonById(
             @PathVariable Integer id
     ) {
 
-        return people.stream()
-                .filter(person -> person.id == id)
+        Optional<Person> person = people.stream()
+                .filter(p -> p.id == id)
                 .findFirst();
+
+        return ResponseEntity.ok().body(person);
     }
 
     @DeleteMapping("{id}")
