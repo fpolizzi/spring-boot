@@ -1,47 +1,10 @@
 package com.fpolizzi;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import tools.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
-@RestController
-@RequestMapping("api/v1/person")
 @SpringBootApplication
 public class SpringAndSpringBootApplication {
-
-    public static List<Person> people = new ArrayList<>();
-    private static AtomicInteger idCounter = new AtomicInteger(0);
-
-    static {
-        people.add(new Person(idCounter.incrementAndGet(), "John", 20, Gender.MALE));
-        people.add(new Person(idCounter.incrementAndGet(), "Mariam", 18, Gender.FEMALE));
-        people.add(new Person(idCounter.incrementAndGet(), "Samba", 29, Gender.MALE));
-    }
 
     static void main(String[] args) {
         SpringApplication.run(
@@ -49,6 +12,7 @@ public class SpringAndSpringBootApplication {
                 args
         );
     }
+<<<<<<< HEAD
 
     @Bean
     CommandLineRunner commandLineRunner(ObjectMapper objectMapper) {
@@ -64,6 +28,7 @@ public class SpringAndSpringBootApplication {
 
         };
     }
+<<<<<<< HEAD
 
     @GetMapping
     public List<Person> getPersons(
@@ -177,6 +142,8 @@ public class SpringAndSpringBootApplication {
 //                         @JsonIgnore Integer age,
 //                         Gender gender) {
 //    }
+<<<<<<< HEAD
+=======
 
     public static class Person {
 
@@ -231,4 +198,63 @@ public class SpringAndSpringBootApplication {
             return Objects.hash(id, name, age, gender);
         }
     }
+>>>>>>> c609a9b (Json (#6))
+
+    public static class Person {
+
+        private final Integer id;
+        private final String name;
+        private final Integer age;
+        private final Gender gender;
+
+        public Person(Integer id, String name, Integer age, Gender gender) {
+            this.id = id;
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        @JsonIgnore
+        public String getName() {
+            return name;
+        }
+
+        public Integer getAge() {
+            return age;
+        }
+
+        public Gender getGender() {
+            return gender;
+        }
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", age=" + age +
+                    ", gender=" + gender +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            Person person = (Person) o;
+            return Objects.equals(id, person.id) && Objects.equals(name, person.name) && Objects.equals(age, person.age) && gender == person.gender;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, name, age, gender);
+        }
+    }
+=======
+>>>>>>> 6c6b94f (refactor: remove service logic from controller)
+=======
+>>>>>>> 6138dde (refactor: restrucure and introduce repository)
 }
