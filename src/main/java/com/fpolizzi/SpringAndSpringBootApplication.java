@@ -1,5 +1,7 @@
 package com.fpolizzi;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -142,8 +143,8 @@ public class SpringAndSpringBootApplication {
     public enum SortingOrder {ASC, DESC}
 
     public record Person(Integer id,
-                         String name,
-                         Integer age,
+                         @JsonGetter("foobar") String name,
+                         @JsonIgnore Integer age,
                          Gender gender) {
     }
 
