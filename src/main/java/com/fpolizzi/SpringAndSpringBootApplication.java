@@ -1,6 +1,5 @@
 package com.fpolizzi;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -61,12 +60,12 @@ public class SpringAndSpringBootApplication {
         if (sort == SortingOrder.ASC) {
 
             return people.stream().limit(limit)
-                    .sorted(Comparator.comparing(Person::id))
+                    .sorted(Comparator.comparing(Person::getId))
                     .collect(Collectors.toList());
         }
 
         return people.stream().limit(limit)
-                .sorted(Comparator.comparing(Person::id).reversed())
+                .sorted(Comparator.comparing(Person::getId).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -94,7 +93,7 @@ public class SpringAndSpringBootApplication {
                 new Person(
                         idCounter.incrementAndGet(),
                         person.name,
-                        person.age(),
+                        person.getAge(),
                         person.gender
                 )
         );
@@ -118,8 +117,8 @@ public class SpringAndSpringBootApplication {
                         Person person = new Person(
                                 p.id,
                                 request.name,
-                                p.age(),
-                                p.gender()
+                                p.getAge(),
+                                p.getGender()
                         );
                         people.set(index, person);
                     }
@@ -145,7 +144,7 @@ public class SpringAndSpringBootApplication {
 //                         Gender gender) {
 //    }
 
-    public class Person {
+    public static class Person {
 
         private final Integer id;
         private final String name;
@@ -159,19 +158,20 @@ public class SpringAndSpringBootApplication {
             this.gender = gender;
         }
 
-        public Integer id() {
+        public Integer getId() {
             return id;
         }
 
-        public String name() {
+        @JsonIgnore
+        public String getName() {
             return name;
         }
 
-        public Integer age() {
+        public Integer getAge() {
             return age;
         }
 
-        public Gender gender() {
+        public Gender getGender() {
             return gender;
         }
 
