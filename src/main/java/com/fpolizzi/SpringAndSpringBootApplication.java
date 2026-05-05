@@ -10,10 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -107,9 +104,62 @@ public class SpringAndSpringBootApplication {
 
     public enum SortingOrder {ASC, DESC}
 
-    public record Person(Integer id,
-                         @JsonGetter("foobar") String name,
-                         @JsonIgnore Integer age,
-                         Gender gender) {
+//    public record Person(Integer id,
+//                         @JsonGetter("foobar") String name,
+//                         @JsonIgnore Integer age,
+//                         Gender gender) {
+//    }
+
+    public class Person {
+
+        private final Integer id;
+        private final String name;
+        private final Integer age;
+        private final Gender gender;
+
+        public Person(Integer id, String name, Integer age, Gender gender) {
+            this.id = id;
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+        }
+
+        public Integer id() {
+            return id;
+        }
+
+        public String name() {
+            return name;
+        }
+
+        public Integer age() {
+            return age;
+        }
+
+        public Gender gender() {
+            return gender;
+        }
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", age=" + age +
+                    ", gender=" + gender +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            Person person = (Person) o;
+            return Objects.equals(id, person.id) && Objects.equals(name, person.name) && Objects.equals(age, person.age) && gender == person.gender;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, name, age, gender);
+        }
     }
 }
