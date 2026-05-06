@@ -3,11 +3,15 @@ package com.fpolizzi.person;
 import com.fpolizzi.SortingOrder;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d26277b (organizing code (#7))
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+<<<<<<< HEAD
 =======
 import com.fpolizzi.SpringAndSpringBootApplication;
 import jakarta.servlet.ServletRequest;
@@ -25,6 +29,8 @@ import java.util.stream.Collectors;
 >>>>>>> 89a321b (refactor: put controller methods to PersonController)
 =======
 >>>>>>> 6c6b94f (refactor: remove service logic from controller)
+=======
+>>>>>>> d26277b (organizing code (#7))
 
 /**
  * Created by fpolizzi on 06.05.26
@@ -32,6 +38,9 @@ import java.util.stream.Collectors;
 @RestController
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d26277b (organizing code (#7))
 @RequestMapping("api/v1/persons")
 public class PersonController {
 
@@ -44,6 +53,7 @@ public class PersonController {
     @GetMapping
     public List<Person> getPeople(
 
+<<<<<<< HEAD
 =======
 @RequestMapping("api/v1/person")
 =======
@@ -69,12 +79,17 @@ public class PersonController {
     public List<Person> getPeople(
 
 >>>>>>> 6c6b94f (refactor: remove service logic from controller)
+=======
+>>>>>>> d26277b (organizing code (#7))
             @RequestParam(
                     value = "sort",
                     required = false,
                     defaultValue = "ASC"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d26277b (organizing code (#7))
             ) SortingOrder sort) {
 
         return personService.getPeople(sort);
@@ -85,6 +100,7 @@ public class PersonController {
             @PathVariable Integer id
     ) {
         Optional<Person> person = personService.getPersonById(id);
+<<<<<<< HEAD
 =======
             ) SortingOrder sort,
 =======
@@ -107,6 +123,8 @@ public class PersonController {
 =======
         Optional<Person> person = personService.getPersonById(id);
 >>>>>>> 6c6b94f (refactor: remove service logic from controller)
+=======
+>>>>>>> d26277b (organizing code (#7))
 
         return ResponseEntity.ok().body(person);
     }
@@ -116,6 +134,9 @@ public class PersonController {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d26277b (organizing code (#7))
         personService.deletePersonById(id);
     }
 
@@ -123,6 +144,7 @@ public class PersonController {
     public void addPerson(@RequestBody Person person) {
 
         personService.addPerson(person);
+<<<<<<< HEAD
 =======
         people.removeIf(person -> person.id == id);
     }
@@ -147,12 +169,15 @@ public class PersonController {
 
         personService.addPerson(person);
 >>>>>>> 6c6b94f (refactor: remove service logic from controller)
+=======
+>>>>>>> d26277b (organizing code (#7))
     }
 
     @PutMapping("{id}")
     public void updatePerson(
             @PathVariable Integer id,
             @RequestBody PersonUpdate request
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     ) {
@@ -190,5 +215,10 @@ public class PersonController {
 =======
         personService.updatePerson(id, request);
 >>>>>>> 6c6b94f (refactor: remove service logic from controller)
+=======
+    ) {
+
+        personService.updatePerson(id, request);
+>>>>>>> d26277b (organizing code (#7))
     }
 }

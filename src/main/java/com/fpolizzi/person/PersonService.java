@@ -7,12 +7,16 @@ import java.util.Comparator;
 import java.util.List;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Objects;
 =======
 >>>>>>> 6138dde (refactor: restrucure and introduce repository)
 =======
 import java.util.Objects;
 >>>>>>> 9365a7e (refactor: replace == by equals)
+=======
+import java.util.Objects;
+>>>>>>> d26277b (organizing code (#7))
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -51,6 +55,7 @@ public class PersonService {
         return personRepository.getPeople().stream()
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .filter(p -> Objects.equals(p.id(), id))
 =======
                 .filter(p -> p.id() == id)
@@ -58,12 +63,16 @@ public class PersonService {
 =======
                 .filter(p -> Objects.equals(p.id(), id))
 >>>>>>> 9365a7e (refactor: replace == by equals)
+=======
+                .filter(p -> Objects.equals(p.id(), id))
+>>>>>>> d26277b (organizing code (#7))
                 .findFirst();
     }
 
     public void deletePersonById(Integer id) {
 
         personRepository.getPeople()
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 .removeIf(person -> Objects.equals(person.id(), id));
@@ -73,6 +82,9 @@ public class PersonService {
 =======
                 .removeIf(person -> Objects.equals(person.id(), id));
 >>>>>>> 9365a7e (refactor: replace == by equals)
+=======
+                .removeIf(person -> Objects.equals(person.id(), id));
+>>>>>>> d26277b (organizing code (#7))
     }
 
     public void addPerson(Person person) {
