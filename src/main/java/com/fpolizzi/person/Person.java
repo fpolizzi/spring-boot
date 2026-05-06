@@ -8,6 +8,13 @@ public record Person(Integer id,
                      Integer age,
                      Gender gender
 ) {
+    public Integer getAge() {
+        return id;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
 }
 
 /*
