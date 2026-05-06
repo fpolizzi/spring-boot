@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -41,14 +42,14 @@ public class PersonService {
     ) {
 
         return personRepository.getPeople().stream()
-                .filter(p -> p.id() == id)
+                .filter(p -> Objects.equals(p.id(), id))
                 .findFirst();
     }
 
     public void deletePersonById(Integer id) {
 
         personRepository.getPeople()
-                .removeIf(person -> person.id() == id);
+                .removeIf(person -> Objects.equals(person.id(), id));
     }
 
     public void addPerson(Person person) {
