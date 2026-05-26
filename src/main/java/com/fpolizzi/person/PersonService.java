@@ -1,28 +1,14 @@
 package com.fpolizzi.person;
-
 import com.fpolizzi.SortingOrder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import java.util.Objects;
-=======
->>>>>>> 6138dde (refactor: restrucure and introduce repository)
-=======
-import java.util.Objects;
->>>>>>> 9365a7e (refactor: replace == by equals)
-=======
-import java.util.Objects;
->>>>>>> d26277b (organizing code (#7))
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-/**
- * Created by fpolizzi on 06.05.26
- */
 @Service
 public class PersonService {
 
@@ -33,58 +19,29 @@ public class PersonService {
     }
 
     public List<Person> getPeople(
-            SortingOrder sort) {
-
+            SortingOrder sort
+    ) {
         if (sort == SortingOrder.ASC) {
-
             return personRepository.getPeople().stream()
                     .sorted(Comparator.comparing(Person::id))
                     .collect(Collectors.toList());
         }
-
         return personRepository.getPeople().stream()
                 .sorted(Comparator.comparing(Person::id).reversed())
                 .collect(Collectors.toList());
     }
 
 
-    public Optional<Person> getPersonById(
-            Integer id
-    ) {
-
+    public Optional<Person> getPersonById(Integer id) {
         return personRepository.getPeople().stream()
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                .filter(p -> Objects.equals(p.id(), id))
-=======
-                .filter(p -> p.id() == id)
->>>>>>> 6138dde (refactor: restrucure and introduce repository)
-=======
-                .filter(p -> Objects.equals(p.id(), id))
->>>>>>> 9365a7e (refactor: replace == by equals)
-=======
-                .filter(p -> Objects.equals(p.id(), id))
->>>>>>> d26277b (organizing code (#7))
+                .filter(p -> p.id().equals(id))
                 .findFirst();
+
     }
 
     public void deletePersonById(Integer id) {
-
         personRepository.getPeople()
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                .removeIf(person -> Objects.equals(person.id(), id));
-=======
-                .removeIf(person -> person.id() == id);
->>>>>>> 6138dde (refactor: restrucure and introduce repository)
-=======
-                .removeIf(person -> Objects.equals(person.id(), id));
->>>>>>> 9365a7e (refactor: replace == by equals)
-=======
-                .removeIf(person -> Objects.equals(person.id(), id));
->>>>>>> d26277b (organizing code (#7))
+                .removeIf(person -> person.id().equals(id));
     }
 
     public void addPerson(Person person) {
@@ -98,11 +55,8 @@ public class PersonService {
         );
     }
 
-    public void updatePerson(
-            Integer id,
-            PersonUpdate request
-
-    ) {
+    public void updatePerson(Integer id,
+                             PersonUpdateRequest request) {
         personRepository.getPeople().stream()
                 .filter(p -> p.id().equals(id))
                 .findFirst()
@@ -115,21 +69,24 @@ public class PersonService {
                         Person person = new Person(
                                 p.id(),
                                 request.name(),
-                                p.getAge(),
-                                p.getGender()
+                                p.age(),
+                                p.gender()
+
                         );
                         personRepository.getPeople().set(index, person);
                     }
-                    if (request.age() != null &&
-                            !request.age().equals(p.age())) {
+                    if (request.age() != null
+                            && !request.age().equals(p.age())) {
                         Person person = new Person(
                                 p.id(),
-                                p.name(), request.age(),
+                                p.name(),
+                                request.age(),
                                 p.gender()
+
                         );
                         personRepository.getPeople().set(index, person);
                     }
                 });
     }
-}
 
+}
