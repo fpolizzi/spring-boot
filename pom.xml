@@ -27,6 +27,18 @@
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
             </exclusions>
+<<<<<<< HEAD
+<<<<<<< HEAD
+        </dependency>
+
+        <!-- use jetty as web server -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+=======
+>>>>>>> 5329d70 (build: exclude Tomcat from Spring Boot starter web dependencies)
+=======
+>>>>>>> 1766cab (embedded web server (#2))
         </dependency>
 
         <!-- use jetty as web server -->
