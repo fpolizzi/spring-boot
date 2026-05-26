@@ -8,6 +8,13 @@ public record Person(Integer id,
                      Integer age,
                      Gender gender
 ) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6138dde (refactor: restrucure and introduce repository)
+=======
+>>>>>>> d26277b (organizing code (#7))
     public Integer getAge() {
         return id;
     }
@@ -71,3 +78,12 @@ public static class Person {
     }
 }
 */
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+}
+>>>>>>> f8a4ee6 (refactor: extract models in appropriate classes)
+=======
+>>>>>>> 19e8dcb (refactor: extract Person class)
+=======
+>>>>>>> d26277b (organizing code (#7))
