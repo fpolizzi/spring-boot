@@ -55,8 +55,9 @@ public class PersonController {
     }
 
     @PostMapping
-    public void addPerson(@RequestBody NewPersonRequest person) {
+    public void addPerson(@Valid @RequestBody NewPersonRequest person) {
 
+    /*
         Set<ConstraintViolation<NewPersonRequest>> validate =
             validator.validate(person);
 
@@ -66,6 +67,7 @@ public class PersonController {
         if (!validate.isEmpty()) {
             throw new ConstraintViolationException(validate);
         }
+    */
 
         personService.addPerson(person);
     }
