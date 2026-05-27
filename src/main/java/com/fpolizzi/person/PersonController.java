@@ -1,6 +1,7 @@
 package com.fpolizzi.person;
 
 import com.fpolizzi.SortingOrder;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public void addPerson(@RequestBody NewPersonRequest person) {
+    public void addPerson(@Valid @RequestBody NewPersonRequest person) {
         personService.addPerson(person);
     }
 
