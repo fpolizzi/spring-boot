@@ -1,12 +1,11 @@
 package com.fpolizzi.person;
+
 import com.fpolizzi.SortingOrder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +43,7 @@ public class PersonService {
                 .removeIf(person -> person.id().equals(id));
     }
 
-    public void addPerson(Person person) {
+    public void addPerson(NewPersonRequest person) {
         personRepository.getPeople().add(
                 new Person(
                         personRepository.getIdCounter().incrementAndGet(),
