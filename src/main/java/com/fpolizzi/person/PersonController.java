@@ -1,8 +1,6 @@
 package com.fpolizzi.person;
 
 import com.fpolizzi.SortingOrder;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.validation.constraints.Positive;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.View;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/v1/persons")
@@ -41,10 +37,10 @@ public class PersonController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Person>> getPersonById(
+    public ResponseEntity<Person> getPersonById(
             @Valid @Positive @PathVariable("id") Integer id
     ) {
-        Optional<Person> person = personService.getPersonById(id);
+        Person person = personService.getPersonById(id);
         return ResponseEntity.ok().body(person);
     }
 
