@@ -1,6 +1,7 @@
 package com.fpolizzi.person;
 
 import com.fpolizzi.SortingOrder;
+import com.fpolizzi.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -35,7 +36,7 @@ public class PersonService {
                 .filter(p -> p.id().equals(id))
                 .findFirst()
                 .orElseThrow(() ->
-                        new IllegalStateException(
+                        new ResourceNotFoundException(
                                 "Person with id: " + id + " does not exists"));
     }
 
