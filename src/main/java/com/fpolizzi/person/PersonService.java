@@ -23,18 +23,18 @@ public class PersonService {
     ) {
         if (sort == SortingOrder.ASC) {
             return personRepository.getPeople().stream()
-                    .sorted(Comparator.comparing(Person::id))
+                    .sorted(Comparator.comparing(Person::getId))
                     .collect(Collectors.toList());
         }
         return personRepository.getPeople().stream()
-                .sorted(Comparator.comparing(Person::id).reversed())
+                .sorted(Comparator.comparing(Person::getId).reversed())
                 .collect(Collectors.toList());
     }
 
 
     public Person getPersonById(Integer id) {
         return personRepository.getPeople().stream()
-                .filter(p -> p.id().equals(id))
+                .filter(p -> p.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
@@ -43,7 +43,7 @@ public class PersonService {
 
     public void deletePersonById(Integer id) {
         Person person = personRepository.getPeople().stream()
-                .filter(p -> p.id().equals(id))
+                .filter(p -> p.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
@@ -55,7 +55,7 @@ public class PersonService {
 
         if (person.email() != null && !person.email().isEmpty()) {
             boolean exists = personRepository.getPeople().stream()
-                    .anyMatch(p -> p.email().equalsIgnoreCase(person.email()));
+                    .anyMatch(p -> p.getEmail().equalsIgnoreCase(person.email()));
             if (exists) {
                 throw new DuplicateResourceException("email taken");
             }
@@ -76,7 +76,7 @@ public class PersonService {
                              PersonUpdateRequest request) {
 
         Person p = personRepository.getPeople().stream()
-                .filter(person -> person.id().equals(id))
+                .filter(person -> person.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
@@ -87,25 +87,24 @@ public class PersonService {
 
         if (request.name() != null &&
                 !request.name().isEmpty() &&
-                !request.name().equals(p.name())) {
+                !request.name().equals(p.getName())) {
             Person person = new Person(
-                    p.id(),
+                    p.getId(),
                     request.name(),
-                    p.age(),
-                    p.gender(),
-                    p.email()
+                    p.getAge(),
+                    p.getGender(),
+                    p.getEmail()
             );
             personRepository.getPeople().set(index, person);
         }
         if (request.age() != null
-                && !request.age().equals(p.age())) {
+                && !request.age().equals(p.getAge())) {
             Person person = new Person(
-                    p.id(),
-                    p.name(),
+                    p.getId(),
+                    p.getName(),
                     request.age(),
-                    p.gender(),
-                    p.email()
-
+                    p.getGender(),
+                    p.getName()
             );
 
             personRepository.getPeople().set(index, person);
