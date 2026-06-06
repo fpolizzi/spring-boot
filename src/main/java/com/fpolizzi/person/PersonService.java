@@ -13,9 +13,11 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final FakePersonRepository fakePersonRepository;
+    private final PersonRepository personRepository;
 
-    public PersonService(FakePersonRepository fakePersonRepository) {
+    public PersonService(FakePersonRepository fakePersonRepository, PersonRepository personRepository) {
         this.fakePersonRepository = fakePersonRepository;
+        this.personRepository = personRepository;
     }
 
     public List<Person> getPeople(
