@@ -1,9 +1,6 @@
 package com.fpolizzi.person;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -14,6 +11,7 @@ public class Person {
     private Integer id;
     private String name;
     private Integer age;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String email;
 
