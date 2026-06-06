@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by fpolizzi on 06.05.26
  */
 @Repository
-public class PersonRepository {
+public class FakePersonRepository {
 
     private final AtomicInteger idCounter =
             new AtomicInteger(0);
