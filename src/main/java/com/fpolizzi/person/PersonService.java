@@ -23,14 +23,7 @@ public class PersonService {
     public List<Person> getPeople(
             SortingOrder sort
     ) {
-        if (sort == SortingOrder.ASC) {
-            return fakePersonRepository.getPeople().stream()
-                    .sorted(Comparator.comparing(Person::getId))
-                    .collect(Collectors.toList());
-        }
-        return fakePersonRepository.getPeople().stream()
-                .sorted(Comparator.comparing(Person::getId).reversed())
-                .collect(Collectors.toList());
+        return personRepository.findAll();
     }
 
 
