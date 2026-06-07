@@ -32,6 +32,13 @@ public class Person {
         this.email = email;
     }
 
+    public Person(String name, Integer age, Gender gender, String email) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.email = email;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -43,25 +43,24 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    public void addPerson(NewPersonRequest person) {
+    public void addPerson(NewPersonRequest personRequest) {
 
-        if (person.email() != null && !person.email().isEmpty()) {
-            boolean exists = fakePersonRepository.getPeople().stream()
-                    .anyMatch(p -> p.getEmail().equalsIgnoreCase(person.email()));
+        if (personRequest.email() != null && !personRequest.email().isEmpty()) {
+            boolean exists = personRepository.existsByEmail(personRequest.email());
+
             if (exists) {
                 throw new DuplicateResourceException("email taken");
             }
         }
 
-        fakePersonRepository.getPeople().add(
-                new Person(
-                        fakePersonRepository.getIdCounter().incrementAndGet(),
-                        person.name(),
-                        person.age(),
-                        person.gender(),
-                        person.email()
-                )
+        Person person = new Person(
+                personRequest.name(),
+                personRequest.age(),
+                personRequest.gender(),
+                personRequest.email()
         );
+
+        personRepository.save(person);
     }
 
     public void updatePerson(Integer id,
