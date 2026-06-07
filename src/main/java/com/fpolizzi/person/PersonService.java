@@ -33,13 +33,14 @@ public class PersonService {
     }
 
     public void deletePersonById(Integer id) {
-        Person person = fakePersonRepository.getPeople().stream()
-                .filter(p -> p.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Person with id: " + id + " does not exists"));
-        fakePersonRepository.getPeople().remove(person);
+        boolean existsById = personRepository.existsById(id);
+
+        if (!existsById) {
+            throw new ResourceNotFoundException(
+                    "Person with id: " + id + " does not exists");
+        }
+
+        personRepository.deleteById(id);
     }
 
     public void addPerson(NewPersonRequest person) {
