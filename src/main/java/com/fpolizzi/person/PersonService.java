@@ -5,9 +5,7 @@ import com.fpolizzi.exception.DuplicateResourceException;
 import com.fpolizzi.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -28,9 +26,7 @@ public class PersonService {
 
 
     public Person getPersonById(Integer id) {
-        return fakePersonRepository.getPeople().stream()
-                .filter(p -> p.getId().equals(id))
-                .findFirst()
+        return personRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "Person with id: " + id + " does not exists"));
