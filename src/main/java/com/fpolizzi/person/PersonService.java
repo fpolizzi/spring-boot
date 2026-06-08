@@ -3,6 +3,7 @@ package com.fpolizzi.person;
 import com.fpolizzi.SortingOrder;
 import com.fpolizzi.exception.DuplicateResourceException;
 import com.fpolizzi.exception.ResourceNotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +20,14 @@ public class PersonService {
     }
 
     public List<Person> getPeople(
-            SortingOrder sort
-    ) {
-        return personRepository.findAll();
+            SortingOrder sort) {
+
+        return personRepository.findAll(
+                Sort.by(
+                        Sort.Direction.valueOf(sort.name()),
+                        "id"
+                )
+        );
     }
 
 
