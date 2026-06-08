@@ -3,112 +3,99 @@ package com.fpolizzi.person;
 import com.fpolizzi.SortingOrder;
 import com.fpolizzi.exception.DuplicateResourceException;
 import com.fpolizzi.exception.ResourceNotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
 
+    private final FakePersonRepository fakePersonRepository;
     private final PersonRepository personRepository;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(FakePersonRepository fakePersonRepository, PersonRepository personRepository) {
+        this.fakePersonRepository = fakePersonRepository;
         this.personRepository = personRepository;
     }
 
     public List<Person> getPeople(
-            SortingOrder sort
-    ) {
-        if (sort == SortingOrder.ASC) {
-            return personRepository.getPeople().stream()
-                    .sorted(Comparator.comparing(Person::id))
-                    .collect(Collectors.toList());
-        }
-        return personRepository.getPeople().stream()
-                .sorted(Comparator.comparing(Person::id).reversed())
-                .collect(Collectors.toList());
+            SortingOrder sort) {
+
+        return personRepository.findAll(
+                Sort.by(
+                        Sort.Direction.valueOf(sort.name()),
+                        "id"
+                )
+        );
     }
 
 
     public Person getPersonById(Integer id) {
-        return personRepository.getPeople().stream()
-                .filter(p -> p.id().equals(id))
-                .findFirst()
+        return personRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "Person with id: " + id + " does not exists"));
     }
 
     public void deletePersonById(Integer id) {
-        Person person = personRepository.getPeople().stream()
-                .filter(p -> p.id().equals(id))
-                .findFirst()
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Person with id: " + id + " does not exists"));
-        personRepository.getPeople().remove(person);
+        boolean existsById = personRepository.existsById(id);
+
+        if (!existsById) {
+            throw new ResourceNotFoundException(
+                    "Person with id: " + id + " does not exists");
+        }
+
+        personRepository.deleteById(id);
     }
 
-    public void addPerson(NewPersonRequest person) {
+    public void addPerson(NewPersonRequest personRequest) {
 
-        if (person.email() != null && !person.email().isEmpty()) {
-            boolean exists = personRepository.getPeople().stream()
-                    .anyMatch(p -> p.email().equalsIgnoreCase(person.email()));
+        if (personRequest.email() != null && !personRequest.email().isEmpty()) {
+            boolean exists = personRepository.existsByEmail(personRequest.email());
+
             if (exists) {
                 throw new DuplicateResourceException("email taken");
             }
         }
 
-        personRepository.getPeople().add(
-                new Person(
-                        personRepository.getIdCounter().incrementAndGet(),
-                        person.name(),
-                        person.age(),
-                        person.gender(),
-                        person.email()
-                )
+        Person person = new Person(
+                personRequest.name(),
+                personRequest.age(),
+                personRequest.gender(),
+                personRequest.email()
         );
+
+        personRepository.save(person);
     }
 
     public void updatePerson(Integer id,
                              PersonUpdateRequest request) {
 
-        Person p = personRepository.getPeople().stream()
-                .filter(person -> person.id().equals(id))
-                .findFirst()
+        Person person = personRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "Person with id: " + id + " does not exists")
                 );
 
-        var index = personRepository.getPeople().indexOf(p);
-
         if (request.name() != null &&
                 !request.name().isEmpty() &&
-                !request.name().equals(p.name())) {
-            Person person = new Person(
-                    p.id(),
-                    request.name(),
-                    p.age(),
-                    p.gender(),
-                    p.email()
-            );
-            personRepository.getPeople().set(index, person);
+                !request.name().equals(person.getName())) {
+            person.setName(request.name());
+            personRepository.save(person);
         }
-        if (request.age() != null
-                && !request.age().equals(p.age())) {
-            Person person = new Person(
-                    p.id(),
-                    p.name(),
-                    request.age(),
-                    p.gender(),
-                    p.email()
 
-            );
+        if (request.email() != null &&
+                !request.email().isEmpty() &&
+                !request.email().equals(person.getEmail())) {
+            person.setEmail(request.email());
+            personRepository.save(person);
+        }
 
-            personRepository.getPeople().set(index, person);
+        if (request.age() != null &&
+                !request.age().equals(person.getAge())) {
+            person.setAge(request.age());
+            personRepository.save(person);
         }
     }
 }
