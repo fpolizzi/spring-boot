@@ -30,7 +30,6 @@ public class PersonService {
         );
     }
 
-
     public Person getPersonById(Integer id) {
         return personRepository.findById(id)
                 .orElseThrow(() ->
