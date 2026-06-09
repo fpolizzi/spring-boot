@@ -35,14 +35,16 @@ public class PostService {
 
     public void createPost(Post post) {
         restClient.post()
+                .uri("/posts/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(post)
                 .retrieve()
                 .toBodilessEntity();
     }
 
-    public void updatePost(Post post) {
+    public void updatePost(Long id, Post post) {
         restClient.put()
+                .uri("/posts/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(post)
                 .retrieve()

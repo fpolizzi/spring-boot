@@ -40,8 +40,9 @@ public class PostController {
         postService.deletePost(id);
     }
 
-    @PutMapping
-    public void updatePost(@RequestBody Post post) {
-        postService.updatePost(post);
+    @PutMapping("{id}")
+    public void updatePost(@PathVariable("id") Long id,
+                           @RequestBody Post post) {
+        postService.updatePost(id, post);
     }
 }
