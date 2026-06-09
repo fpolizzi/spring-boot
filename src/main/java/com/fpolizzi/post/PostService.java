@@ -1,9 +1,11 @@
 package com.fpolizzi.post;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -30,6 +32,11 @@ public class PostService {
     public Post getPostById(Long id) {
         return restClient.get().uri("/posts/{id}", id)
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, ((request, response) -> {
+                    throw new ResponseStatusException(
+                            response.getStatusCode()
+                    );
+                }))
                 .body(Post.class);
     }
 
@@ -51,7 +58,7 @@ public class PostService {
                 .toBodilessEntity();
     }
 
-    public void deletePost(Long id) {
+    public void deletePostById(Long id) {
         restClient.delete()
                 .uri("/posts/{id}", id)
                 .retrieve()
