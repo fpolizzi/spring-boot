@@ -22,9 +22,8 @@ public class SpringAndSpringBootApplication {
     }
 
     @Scheduled(
-//            fixedRate = 5,
-//            timeUnit = TimeUnit.SECONDS
-            cron = "0 0 0 * * *"
+            fixedRate = 5,
+            timeUnit = TimeUnit.SECONDS
     )
     public void sendEmails() throws InterruptedException {
 
@@ -33,6 +32,18 @@ public class SpringAndSpringBootApplication {
         Thread.sleep(2000);
 
         System.out.println("end sending emails");
+    }
+
+    @Scheduled(
+            cron = "*/5 * * * * *"
+    )
+    public void generateSalesReport() throws InterruptedException {
+
+        System.out.println("start sales report");
+
+        Thread.sleep(5000);
+
+        System.out.println("end sales report");
     }
 }
 
