@@ -21,7 +21,11 @@ public class SpringAndSpringBootApplication {
         );
     }
 
-    @Scheduled(fixedRate = 5, timeUnit = TimeUnit.SECONDS)
+    @Scheduled(
+//            fixedRate = 5,
+//            timeUnit = TimeUnit.SECONDS
+            cron = "0 0 0 * * *"
+    )
     public void sendEmails() throws InterruptedException {
 
         System.out.println("start sending emails");
