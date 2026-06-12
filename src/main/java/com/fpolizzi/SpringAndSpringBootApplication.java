@@ -30,10 +30,14 @@ public class SpringAndSpringBootApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(Environment environment) {
+    CommandLineRunner commandLineRunner(
+            Environment environment,
+            StripeConfig stripeConfig
+    ) {
 
         System.out.println(userName);
         System.out.println(environment.getProperty("user.my-name"));
+        System.out.println(stripeConfig);
 
         return args -> {};
     }
