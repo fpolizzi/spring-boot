@@ -1,13 +1,12 @@
 package com.fpolizzi;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by fpolizzi on 5/27/26
@@ -17,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 @EnableAsync
 public class SpringAndSpringBootApplication {
 
+    @Value("${user.my-name}")
+    private String userName;
+
     static void main(String[] args) {
         SpringApplication.run(
                 SpringAndSpringBootApplication.class,
@@ -24,31 +26,11 @@ public class SpringAndSpringBootApplication {
         );
     }
 
-    @Scheduled(
-            fixedRate = 5,
-            timeUnit = TimeUnit.SECONDS
-    )
-    @Async
-    public void sendEmails() throws InterruptedException {
+    @Bean
+    CommandLineRunner commandLineRunner() {
+        System.out.println(userName);
 
-        System.out.println("start sending emails");
-
-        Thread.sleep(2000);
-
-        System.out.println("end sending emails");
-    }
-
-    @Scheduled(
-            cron = "*/5 * * * * *"
-    )
-    @Async
-    public void generateSalesReport() throws InterruptedException {
-
-        System.out.println("start sales report");
-
-        Thread.sleep(5000);
-
-        System.out.println("end sales report");
+        return args -> {};
     }
 }
 
