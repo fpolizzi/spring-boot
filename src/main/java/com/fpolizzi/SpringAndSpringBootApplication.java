@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -19,6 +20,8 @@ public class SpringAndSpringBootApplication {
     @Value("${user.my-name}")
     private String userName;
 
+    private Environment environment;
+
     static void main(String[] args) {
         SpringApplication.run(
                 SpringAndSpringBootApplication.class,
@@ -27,8 +30,10 @@ public class SpringAndSpringBootApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner() {
+    CommandLineRunner commandLineRunner(Environment environment) {
+
         System.out.println(userName);
+        System.out.println(environment.getProperty("user.my-name"));
 
         return args -> {};
     }
