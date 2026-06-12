@@ -9,6 +9,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import java.util.Arrays;
+
 /**
  * Created by fpolizzi on 5/27/26
  */
@@ -23,6 +25,10 @@ public class SpringAndSpringBootApplication {
     private Environment environment;
 
     static void main(String[] args) {
+
+        // output args
+        System.out.println("args: " + Arrays.toString(args));
+
         SpringApplication.run(
                 SpringAndSpringBootApplication.class,
                 args
