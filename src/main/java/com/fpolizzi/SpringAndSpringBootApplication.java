@@ -1,15 +1,11 @@
 package com.fpolizzi;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import java.util.Arrays;
 
 /**
  * Created by fpolizzi on 5/27/26
@@ -17,35 +13,24 @@ import java.util.Arrays;
 @SpringBootApplication
 @EnableScheduling
 @EnableAsync
+
 public class SpringAndSpringBootApplication {
 
-    @Value("${user.my-name}")
-    private String userName;
+    private final static Logger LOGGER =
+            LoggerFactory.getLogger(SpringAndSpringBootApplication.class);
 
-    private Environment environment;
 
     static void main(String[] args) {
-
-        // output args
-        System.out.println("args: " + Arrays.toString(args));
-
         SpringApplication.run(
                 SpringAndSpringBootApplication.class,
                 args
         );
-    }
 
-    @Bean
-    CommandLineRunner commandLineRunner(
-            Environment environment,
-            StripeConfig stripeConfig
-    ) {
+        System.out.println("Hello");
 
-        System.out.println(userName);
-        System.out.println(environment.getProperty("user.my-name"));
-        System.out.println(stripeConfig);
-
-        return args -> {};
+        LOGGER.info("Hello World");
+        LOGGER.debug("I am a debug message");
+        LOGGER.warn("I am a warn message");
+        LOGGER.error("I am a error message");
     }
 }
-
