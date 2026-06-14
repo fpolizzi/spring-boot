@@ -26,11 +26,11 @@ public class SpringAndSpringBootApplication {
                 args
         );
 
-        System.out.println("Hello");
-
-        LOGGER.info("Hello World");
-        LOGGER.debug("I am a debug message");
-        LOGGER.warn("I am a warn message");
-        LOGGER.error("I am a error message");
+//        System.out.println("Hello");
+//
+//        LOGGER.info("Hello World");
+//        LOGGER.debug("I am a debug message");
+//        LOGGER.warn("I am a warn message");
+//        LOGGER.error("I am a error message");
     }
 }
