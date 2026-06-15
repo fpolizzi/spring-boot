@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @EnableAsync
-
 public class SpringAndSpringBootApplication {
 
     private final static Logger LOGGER =
